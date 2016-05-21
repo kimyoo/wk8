@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+    <script>
+	var appid = 'c7c09b34b1f40f65fad618c71e38a52d';
+	document.addEventListener('DOMContentLoaded', bindButtons4Zip);
+	
+	  function bindButtons4Zip(){
+        document.getElementById('reportWeather').addEventListener('click', function(event){
+          var req = new XMLHttpRequest();
+          var payload = {name:null};
+          payload.name = document.getElementById('zipCode').value;
+          req.open("POST", "http://api.openweathermap.org/data/2.5/weather?zip=" + payload.name + "&appid=" + appid, true);
+          //req.setRequestHeader('Content-Type', 'application/json');
+			req.addEventListener('load',function(){	  
+			if(req.status >= 200 && req.status < 400){
+			var response = JSON.parse(req.responseText);
+			document.getElementById('temp').textContent = response.main.temp;
+						  } else {
+				console.log("Error in network request: " + request.statusText);
+			  }})
+          req.send(JSON.stringify(payload));
+
+          event.preventDefault();
+        })
+      }
+	var appid = 'c7c09b34b1f40f65fad618c71e38a52d';  
+	document.addEventListener('DOMContentLoaded', bindButtons4City);  
+	  function bindButtons4City(){
+        document.getElementById('reportWeather4City').addEventListener('click', function(event){
+          var req = new XMLHttpRequest();
+          var payload = {name:null};
+          payload.name = document.getElementById('city').value;
+          req.open("POST", "http://api.openweathermap.org/data/2.5/weather?q=" + payload.name + "&appid=" + appid, true);
+          //req.setRequestHeader('Content-Type', 'application/json');
+			req.addEventListener('load',function(){	  
+			if(req.status >= 200 && req.status < 400){
+			var response = JSON.parse(req.responseText);
+			document.getElementById('temp4City').textContent = response.main.temp;
+						  } else {
+				console.log("Error in network request: " + request.statusText);
+			  }})
+          req.send(JSON.stringify(payload));
+
+          event.preventDefault();
+        })
+      }	  
+
+    </script>
+	<script src="whatSent.js"></script>
+	<script src="wk8.js"></script>
+	
+  </head>
+  <body>
+  <!--weather by zip -->
+      <form>
+      <fieldset>
+        <legend>Weather</legend>
+        <label for="zipCode">Enter Zip Code:</label>
+        <input type="text" name="zip" id="zipCode">
+        <input type="submit" id="reportWeather">
+      </fieldset>
+    </form>
+
+    <div>
+      <h2>Result By Zip</h2>
+      <ul>
+        <li><span>Tempature:</span><span id="temp"></span></li>
+        <!--li><span>Short URL:</span><span id="shortUrl"></span></li-->
+      </ul>
+    </div>
+	
+<!-- weather by city -->
+	<form>
+      <fieldset>
+        <legend>Weather</legend> 
+		<!-- In HTML, it is the id referred as an identifier to be used for another tag.
+		For example, the label tag is defining a label for the the following tag, and it references it with the id value, i.g., zipcode --> 
+        <label for="city">Enter City Name:</label>
+        <input type="text" name="cityName" id="city">
+        <input type="submit" id="reportWeather4City">
+      </fieldset>
+    </form>
+
+    <div>
+      <h2>Result By City</h2>
+      <ul>
+        <li><span>Tempature:</span><span id="temp4City"></span></li>
+        <!--li><span>Short URL:</span><span id="shortUrl"></span></li-->
+      </ul>
+    </div>
+	
+      <form>
+      <fieldset>
+        <legend>Send/Receive</legend>
+        <label for="name">Enter Your Name:</label>
+        <input type="text" name="enter" id="name">
+        <input type="submit" id="entered">
+		
+      </fieldset>
+    </form>	
+	    <div>
+      <h2>Result2</h2>
+      <ul>
+        <li><span>Send:</span><span id="send"></span></li>
+        <li><span>What was sent:</span><span id="sent"></span></li>
+      </ul>
+    </div>
+	<div>
+	<h1>Hello {{name}} Here is your To Do List!</h1>
+<h2>You have {{toDoCount}} items on your to do list.</h2>
+<form method="post">
+  <input type="text" name="name" id="toDoName">
+  <input type="submit" name="Add Item" value="Add Item">
+</form>
+{{#if toDo}}
+<ul>
+  {{#each toDo}}
+  <li>
+    <h3>{{this.name}}</h3>
+    <form method="post">
+      <input type="hidden" name="id" value="{{this.id}}">
+      <input type="submit" name="Done" value="Mark as Done">
+    </form>
+  </li>
+  {{/each}}
+</ul>
+{{/if}}
+</div>
+	</body>
+</html>
