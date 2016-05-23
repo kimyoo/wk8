@@ -51,6 +51,7 @@ app.get('/get-ex',function(req,res,next){
     if(!err && response.statusCode < 400){
       context.owm = body;
       res.render('home',context);
+	  console.log("temp: " + context.main.temp);
     } else {
       if(response){
         console.log(response.statusCode);
