@@ -51,10 +51,10 @@ app.get('/get-ex',function(req,res,next){
     if(!err && response.statusCode < 400){
       context.owm = body;
 	  var result = JSON.parse(body);
-	  context.WeatherMap = result.name + ", " + result.main.temp + " fahrenheit"
+	  context.test1 = result.name + ", " + result.main.temp + " fahrenheit"
       res.render('home',context);
 	  //console.log("temp: " + response.main.temp);
-	  console.log(context.WeatherMap);
+	  console.log(context.test1);
     } else {
       if(response){
         console.log(response.statusCode);
