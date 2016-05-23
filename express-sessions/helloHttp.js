@@ -50,9 +50,11 @@ app.get('/get-ex',function(req,res,next){
   request('http://api.openweathermap.org/data/2.5/weather?q=corvallis&APPID=' + credentials.owmKey, function(err, response, body){
     if(!err && response.statusCode < 400){
       context.owm = body;
-	  var response = JSON.parse(context);
+	  var result = JSON.parse(body);
+	  context.WeatherMap = result.name + ", " + result.main.temp + " fahrenheit"
       res.render('home',context);
-	  console.log("temp: " + response.main.temp);
+	  //console.log("temp: " + response.main.temp);
+	  console.log(context.WeatherMap);
     } else {
       if(response){
         console.log(response.statusCode);
