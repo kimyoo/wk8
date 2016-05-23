@@ -1,4 +1,4 @@
-//combining sessions with cross-domain http calls
+//combining this session (intSessions.js) with cross-domain http call (helloHttp.js)
 //alert("this is a test");
 var express = require('express');
 
@@ -27,6 +27,7 @@ app.get('/',function(req,res,next){
   context.name = req.session.name;
   context.toDoCount = req.session.toDo.length || 0;
   context.toDo = req.session.toDo || [];
+  console.log("context name:" + context.name);
   console.log(context.toDo);
   res.render('toDo',context);
 });
